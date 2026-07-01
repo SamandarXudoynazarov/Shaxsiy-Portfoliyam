@@ -38,7 +38,8 @@ export default function Navbar({ about }: NavbarProps) {
         {about.name}.dev
       </a>
 
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+      {/* Desktop menu */}
+      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="desktop-menu">
         {links.map(l => (
           <a key={l.href} href={l.href} style={{
             fontSize: '14px', color: 'var(--text2)',
@@ -61,6 +62,101 @@ export default function Navbar({ about }: NavbarProps) {
           Admin
         </Link>
       </div>
+
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        style={{
+          display: 'none',
+          flexDirection: 'column',
+          gap: '5px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '5px',
+        }}
+        className="mobile-menu-btn"
+      >
+        <span style={{
+          width: '24px',
+          height: '2px',
+          background: 'var(--text)',
+          transition: 'all 0.3s',
+          transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none',
+        }} />
+        <span style={{
+          width: '24px',
+          height: '2px',
+          background: 'var(--text)',
+          transition: 'all 0.3s',
+          opacity: menuOpen ? 0 : 1,
+        }} />
+        <span style={{
+          width: '24px',
+          height: '2px',
+          background: 'var(--text)',
+          transition: 'all 0.3s',
+          transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none',
+        }} />
+      </button>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '64px',
+          left: 0,
+          right: 0,
+          background: 'rgba(10,10,15,0.98)',
+          backdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          padding: '1rem 2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+        }} className="mobile-menu">
+          {links.map(l => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontSize: '15px',
+                color: 'var(--text2)',
+                padding: '0.75rem 0',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--text2)')}
+            >
+              {l.label}
+            </a>
+          ))}
+          <Link
+            href="/admin"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              fontSize: '14px',
+              padding: '0.75rem 0',
+              color: 'var(--text2)',
+              transition: 'all 0.2s',
+            }}
+          >
+            Admin
+          </Link>
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-menu {
+            display: none !important;
+          }
+          .mobile-menu-btn {
+            display: flex !important;
+          }
+        }
+      `}</style>
     </nav>
   )
 }

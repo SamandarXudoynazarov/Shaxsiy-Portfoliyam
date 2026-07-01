@@ -16,10 +16,11 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
   const categories = Array.from(new Set(skills.map(s => s.category)))
 
   return (
-    <section id="skills" style={{
-      padding: '6rem 2rem',
-      background: 'var(--bg2)',
-    }}>
+    <>
+      <section id="skills" style={{
+        padding: '6rem 2rem',
+        background: 'var(--bg2)',
+      }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         <SectionLabel label="Ko'nikmalar" />
 
@@ -36,7 +37,7 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
                 gap: '12px',
-              }}>
+              }} className="skills-grid">
                 {skills.filter(s => s.category === cat).map((skill, i) => (
                   <SkillCard key={i} skill={skill} color={categoryColors[cat] || 'var(--text2)'} />
                 ))}
@@ -46,6 +47,20 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
         </div>
       </div>
     </section>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .skills-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .skills-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </>
   )
 }
 

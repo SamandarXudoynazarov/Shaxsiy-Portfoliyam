@@ -22,26 +22,41 @@ const catColors: Record<string, { bg: string; text: string; label: string }> = {
 
 export default function ProjectsSection({ projects }: { projects: Project[] }) {
   return (
-    <section id="projects" style={{ padding: '6rem 2rem', maxWidth: '1100px', margin: '0 auto' }}>
-      <SectionLabel label="Loyihalar" />
+    <>
+      <section id="projects" style={{ padding: '6rem 2rem', maxWidth: '1100px', margin: '0 auto' }}>
+        <SectionLabel label="Loyihalar" />
 
-      {projects.length === 0 ? (
-        <div style={{
-          textAlign: 'center', padding: '4rem',
-          color: 'var(--text3)', fontFamily: 'var(--mono)', fontSize: '14px',
-        }}>
-          // loyihalar tez orada qo'shiladi
-        </div>
-      ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '16px',
-        }}>
-          {projects.map(p => <ProjectCard key={p._id} project={p} />)}
-        </div>
-      )}
-    </section>
+        {projects.length === 0 ? (
+          <div style={{
+            textAlign: 'center', padding: '4rem',
+            color: 'var(--text3)', fontFamily: 'var(--mono)', fontSize: '14px',
+          }}>
+            // loyihalar tez orada qo'shiladi
+          </div>
+        ) : (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+            gap: '16px',
+          }} className="projects-grid">
+            {projects.map(p => <ProjectCard key={p._id} project={p} />)}
+          </div>
+        )}
+      </section>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .projects-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .projects-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </>
   )
 }
 

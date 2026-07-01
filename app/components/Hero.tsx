@@ -33,7 +33,7 @@ export default function Hero({ about }: HeroProps) {
         pointerEvents: 'none',
       }} />
 
-      <div style={{ maxWidth: '1000px', width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '4rem', flexWrap: 'wrap' }}>
+      <div style={{ maxWidth: '1000px', width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '4rem', flexWrap: 'wrap' }} className="hero-container">
 
         {/* Left: text */}
         <div style={{ flex: 1, minWidth: '300px' }}>
@@ -162,6 +162,13 @@ export default function Hero({ about }: HeroProps) {
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.3; }
+        }
+        @media (max-width: 768px) {
+          .hero-container {
+            gap: 2rem !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
         }
       `}</style>
     </section>
